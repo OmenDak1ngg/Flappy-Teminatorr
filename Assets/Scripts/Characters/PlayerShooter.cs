@@ -37,7 +37,6 @@ public class PlayerShooter : MonoBehaviour
     {
         if (_canShoot)
         {
-            Debug.Log("signalized to shoot");
             Shooted?.Invoke();
             StartCoroutine(ShootReload());
         }

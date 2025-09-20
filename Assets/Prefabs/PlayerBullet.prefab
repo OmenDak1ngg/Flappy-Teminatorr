@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 5
-  _speed: 4
+  _speed: 30
   _isFacingRight: 1
   _collisionHandler: {fileID: 1841426425098238462}
 --- !u!114 &1841426425098238462

@@ -16,7 +16,6 @@ public class BulletSpawner : Spawner<Bullet>
 
     private void GetBullet()
     {
-        Debug.Log("bullet Getted");
         _pool.Get();
     }
 

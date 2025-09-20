@@ -18,7 +18,6 @@ public class InputReader : MonoBehaviour
         if (Input.GetKeyDown(KeyCodeShoot))
         {
             Shooted?.Invoke(); 
-            Debug.Log("pressed shoot button");
         }
     }
 }

@@ -36,17 +36,22 @@ public class Bullet : MonoBehaviour, Iinteractable
         Vector2 defaulRotation = new Vector2(_startFacing.x, yRotation);
     
         transform.rotation = Quaternion.Euler(defaulRotation);
+    }
 
-        while (enabled)
-        {
-            transform.Translate(new Vector3(0, _isFacingRight ? 1 : -1) * _speed * Time.deltaTime);
-        }
+    private void Update()
+    {
+        transform.Translate(new Vector3(_isFacingRight ? 1 : -1,0) * _speed * Time.deltaTime);
     }
 
     private void HandleCollision(Iinteractable interacteable)
     {
+        Debug.Log("handing collsiion");
+
         if (interacteable is RemoveZone)
+        {
             HittedTarget?.Invoke(this);
+            Debug.Log("hitted wall");
+        }
 
         if(interacteable is Terminator terminator)
         {

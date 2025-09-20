@@ -6,9 +6,11 @@ public class CollisionHandler : MonoBehaviour
 {
     public event Action<Iinteractable> CollisionDetected;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(other.TryGetComponent<Iinteractable>(out Iinteractable interactable))
+        Debug.Log("Trigger entered");
+
+        if (collision.TryGetComponent<Iinteractable>(out Iinteractable interactable))
         {
             CollisionDetected?.Invoke(interactable);
         }
