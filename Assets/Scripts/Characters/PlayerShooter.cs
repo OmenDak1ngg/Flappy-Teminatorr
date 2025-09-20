@@ -9,7 +9,7 @@ public class PlayerShooter : MonoBehaviour
 
     [SerializeField] private InputReader _inputReader;
 
-    private WaitForSeconds _shootDelayWait;
+    private WaitForSeconds _shootWait;
 
     private bool _canShoot;
 
@@ -30,7 +30,7 @@ public class PlayerShooter : MonoBehaviour
     private void Start()
     {
         _canShoot = true;
-        _shootDelayWait = new WaitForSeconds(_shootDelay);
+        _shootWait = new WaitForSeconds(_shootDelay);
     }
 
     private void OnShoot()
@@ -47,7 +47,7 @@ public class PlayerShooter : MonoBehaviour
     {
         _canShoot = false;
 
-        yield return _shootDelayWait;
+        yield return _shootWait;
 
         _canShoot = true;
     }

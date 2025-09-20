@@ -8,7 +8,7 @@ public class CameraTracker : MonoBehaviour
 
     private void Update()
     {
-        Vector2 position = transform.position;
+        Vector3 position = transform.position;
         position.x = _terminator.transform.position.x + _offsetX;
 
         transform.position = position;
