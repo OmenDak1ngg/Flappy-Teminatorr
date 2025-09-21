@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class Bullet : MonoBehaviour, Iinteractable
+public class Bullet : MonoBehaviour
 {
     [SerializeField] private int _damage;
     [SerializeField] private float _speed;
@@ -29,6 +29,8 @@ public class Bullet : MonoBehaviour, Iinteractable
 
     private void Start()
     {
+        GetComponent<Collider2D>().isTrigger = true;
+
         _startFacing = transform.rotation.eulerAngles;
 
         float yRotation = _isFacingRight ? _startFacing.y : _startFacing.y + 180;
@@ -45,17 +47,16 @@ public class Bullet : MonoBehaviour, Iinteractable
 
     private void HandleCollision(Iinteractable interacteable)
     {
-        Debug.Log("handing collsiion");
-
         if (interacteable is RemoveZone)
         {
             HittedTarget?.Invoke(this);
-            Debug.Log("hitted wall");
         }
 
-        if(interacteable is Terminator terminator)
+        if(interacteable is ShootingCharacter character)
         {
-            terminator.Health.TakeDamage(_damage);
+            Debug.Log("hitted characrer");
+
+            character.Health.TakeDamage(_damage);
             HittedTarget?.Invoke(this);
         }
     }

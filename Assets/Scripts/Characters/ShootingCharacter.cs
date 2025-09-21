@@ -1,23 +1,16 @@
 using System.Runtime.InteropServices;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Health))]
 public abstract class ShootingCharacter : MonoBehaviour, Iinteractable
 {
     [SerializeField] private Health _health;
 
-    [SerializeField] private CollisionHandler _collisionHandler;
-
     public Health Health => _health;
 
-    protected virtual void OnEnable()
+    protected virtual void Start()
     {
-        _collisionHandler.CollisionDetected += HandleCollision;
+        GetComponent<Collider2D>().isTrigger = false;
     }
-
-    protected virtual void OnDisable()
-    {
-        _collisionHandler.CollisionDetected -= HandleCollision;
-    }
-
-    protected abstract void HandleCollision(Iinteractable interactable);
 }

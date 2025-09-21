@@ -1,9 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyMover))]
 public class Enemy : ShootingCharacter
 {
-    protected override void HandleCollision(Iinteractable interactable)
-    {
-        
-    }
 }

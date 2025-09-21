@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BulletSpawner : Spawner<Bullet>
 {
-    [SerializeField] private PlayerShooter _shooter;
+    [SerializeField] private Shooter _shooter;
 
     private void OnEnable()
     {

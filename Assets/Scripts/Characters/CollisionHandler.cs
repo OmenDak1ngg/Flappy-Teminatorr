@@ -8,11 +8,7 @@ public class CollisionHandler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Trigger entered");
-
-        if (collision.TryGetComponent<Iinteractable>(out Iinteractable interactable))
-        {
+        if(collision.TryGetComponent<Iinteractable>(out Iinteractable interactable))
             CollisionDetected?.Invoke(interactable);
-        }
     }
 }

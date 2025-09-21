@@ -2,20 +2,11 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class PlayerShooter : MonoBehaviour
+public class PlayerShooter : Shooter
 {
-    [SerializeField] private Transform _shootPoint;
-    [SerializeField] private float _shootDelay;
-
     [SerializeField] private InputReader _inputReader;
 
-    private WaitForSeconds _shootWait;
-
     private bool _canShoot;
-
-    public Transform ShootPoint =>  _shootPoint;
-
-    public event Action Shooted;
 
     private void OnEnable()
     {
@@ -27,17 +18,17 @@ public class PlayerShooter : MonoBehaviour
         _inputReader.Shooted -= OnShoot;
     }
 
-    private void Start()
+    protected override void Start()
     {
         _canShoot = true;
-        _shootWait = new WaitForSeconds(_shootDelay);
+        base.Start();
     }
 
-    private void OnShoot()
+    protected override void OnShoot()
     {
         if (_canShoot)
-        {
-            Shooted?.Invoke();
+        { 
+            base.OnShoot();
             StartCoroutine(ShootReload());
         }
     }
@@ -46,7 +37,7 @@ public class PlayerShooter : MonoBehaviour
     {
         _canShoot = false;
 
-        yield return _shootWait;
+        yield return ShootWait;
 
         _canShoot = true;
     }
