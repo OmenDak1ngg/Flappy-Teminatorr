@@ -7,7 +7,7 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour
 
     protected ObjectPool<T> _pool;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         _pool = new ObjectPool<T>(
             createFunc: () => OnInstantiate(),
@@ -34,6 +34,6 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void OnDestroyObject(T pooledObject)
     {
-        Destroy(pooledObject);
+        Destroy(pooledObject.gameObject);
     }
 }

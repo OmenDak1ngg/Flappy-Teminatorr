@@ -10,11 +10,11 @@ public class EnemySpawner : Spawner<Enemy>
 
     private WaitForSeconds _spawnWait;
 
-    protected override void Start()
+    protected override void Awake()
     {
         _spawnWait = new WaitForSeconds(_spawnDelay);
 
-        base.Start();
+        base.Awake();
 
         StartCoroutine(SpawnEnemies());
     }
@@ -27,9 +27,9 @@ public class EnemySpawner : Spawner<Enemy>
         }
     }
 
-    private Vector3 SetRandomShootPoint()
+    private Transform SetRandomShootPoint()
     {
-        return _shootPoints[Random.Range(0, _shootPoints.Length)].position;
+        return _shootPoints[Random.Range(0, _shootPoints.Length)];
     }
 
     private Vector3 SetRandomSpawnPoint()
@@ -41,8 +41,9 @@ public class EnemySpawner : Spawner<Enemy>
     {
         while (enabled)
         {
-            _pool.Get();
             yield return _spawnWait;
+
+            _pool.Get();
         }
     }
 
@@ -50,18 +51,17 @@ public class EnemySpawner : Spawner<Enemy>
     {
         Enemy enemy = base.OnInstantiate();
 
-        enemy.Health.Dead += OnEnemyDead;
+        enemy.transform.SetParent(this.transform);
+
+        enemy.ReachedRemoveZone += OnEnemyDead;
 
         return enemy;
     }
 
     protected override void OnGetObject(Enemy pooledObject)
     {
-        Debug.Log(pooledObject.GetComponent<EnemyMover>() == null);
-
         EnemyMover mover = pooledObject.GetComponent<EnemyMover>();
 
-        mover.MoveToShootPoint();
         pooledObject.transform.position = SetRandomSpawnPoint();
         mover.SetShootPoint(SetRandomShootPoint());
 
@@ -73,13 +73,15 @@ public class EnemySpawner : Spawner<Enemy>
     protected override void OnReleaseObject(Enemy pooledObject)
     {
         pooledObject.GetComponent<EnemyShooter>().StopShooting();
+        pooledObject.Health.SetStartAmount();
 
+        pooledObject.GetComponent<AnimationController>().ResetAllStates();
         base.OnReleaseObject(pooledObject);
     }
 
     protected override void OnDestroyObject(Enemy pooledObject)
     {
-        pooledObject.Health.Dead -= OnEnemyDead;
+        pooledObject.ReachedRemoveZone -= OnEnemyDead;
 
         base.OnDestroyObject(pooledObject);
     }

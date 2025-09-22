@@ -3,11 +3,18 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private float _amount;
+    [SerializeField] private int _amount;
+
+    private int _startAmont;
 
     public float Amount => _amount;
 
     public event Action<Health> Dead;
+
+    private void Start()
+    {
+        _startAmont = _amount;
+    }
 
     public void TakeDamage(int damage)
     {
@@ -18,5 +25,10 @@ public class Health : MonoBehaviour
 
         if(_amount <= 0)
             Dead?.Invoke(this);
+    }
+
+    public void SetStartAmount()
+    {
+        _amount = _startAmont;
     }
 }

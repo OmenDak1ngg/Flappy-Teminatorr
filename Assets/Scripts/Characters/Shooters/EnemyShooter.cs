@@ -22,11 +22,10 @@ public class EnemyShooter : Shooter
     {
         while (enabled)
         {
-            OnShoot();
-
             yield return ShootWait;
-        }
 
+            OnShoot();
+        }
     }
 
     protected override void OnShoot()

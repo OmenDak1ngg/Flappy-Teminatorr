@@ -4,6 +4,8 @@ public class BulletSpawner : Spawner<Bullet>
 {
     [SerializeField] private Shooter _shooter;
 
+    [SerializeField] private int _bulletOwnerLayerIndex;
+
     private void OnEnable()
     {
         _shooter.Shooted += GetBullet;
@@ -16,12 +18,14 @@ public class BulletSpawner : Spawner<Bullet>
 
     private void GetBullet()
     {
-        _pool.Get();
+          _pool.Get();
     }
 
     protected override Bullet OnInstantiate()
     {
         Bullet bullet =  base.OnInstantiate();
+        
+        bullet.SetOwnerLayerMask(_bulletOwnerLayerIndex);
 
         bullet.HittedTarget += OnReleaseObject;
 

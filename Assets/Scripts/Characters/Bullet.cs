@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -10,6 +11,8 @@ public class Bullet : MonoBehaviour
     [SerializeField] private bool _isFacingRight;
 
     [SerializeField] private CollisionHandler _collisionHandler;
+
+    private int _ownerLayerIndex;
 
     private Vector2 _startFacing;
 
@@ -30,14 +33,6 @@ public class Bullet : MonoBehaviour
     private void Start()
     {
         GetComponent<Collider2D>().isTrigger = true;
-
-        _startFacing = transform.rotation.eulerAngles;
-
-        float yRotation = _isFacingRight ? _startFacing.y : _startFacing.y + 180;
-
-        Vector2 defaulRotation = new Vector2(_startFacing.x, yRotation);
-    
-        transform.rotation = Quaternion.Euler(defaulRotation);
     }
 
     private void Update()
@@ -54,10 +49,16 @@ public class Bullet : MonoBehaviour
 
         if(interacteable is ShootingCharacter character)
         {
-            Debug.Log("hitted characrer");
+            if (character.gameObject.layer == _ownerLayerIndex)
+                return;
 
             character.Health.TakeDamage(_damage);
             HittedTarget?.Invoke(this);
         }
+    }
+
+    public void SetOwnerLayerMask(int layerIndex)
+    {
+        _ownerLayerIndex = layerIndex;
     }
 }
