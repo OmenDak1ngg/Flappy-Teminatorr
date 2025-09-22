@@ -34,8 +34,17 @@ public class BulletSpawner : Spawner<Bullet>
 
     protected override void OnGetObject(Bullet pooledObject)
     {
+        Debug.Log("bullet Getted");
+
         pooledObject.transform.position = _shooter.ShootPoint.position;
         base.OnGetObject(pooledObject);
+    }
+
+    protected override void OnReleaseObject(Bullet pooledObject)
+    {
+        Debug.Log("Released");
+
+        base.OnReleaseObject(pooledObject);
     }
 
     protected override void OnDestroyObject(Bullet pooledObject)
