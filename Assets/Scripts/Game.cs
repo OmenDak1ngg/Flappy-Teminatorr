@@ -6,7 +6,7 @@ public class Game : MonoBehaviour
     [SerializeField] private Terminator _terminator;
     [SerializeField] private EndGameScreen _endGameScreen;
 
-    [SerializeField] private Button _restartButton;
+    [SerializeField] private RestartButton _restartButton;
 
     private void OnEnable()
     {
@@ -29,7 +29,7 @@ public class Game : MonoBehaviour
 
     private void StartGame()
     {
-        _terminator.TeleportToStartPoint();
+        _terminator.OnRevive();
         Time.timeScale = 1f;
         _endGameScreen.HideEndGameScreen();
     }

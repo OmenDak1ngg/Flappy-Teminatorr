@@ -1,9 +1,12 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(TerminatorMover))]
 public class Terminator : ShootingCharacter
 {
     [SerializeField] private CollisionHandler _collisionHandler;
+    [SerializeField] private TerminatorMover _terminatorMover;
 
     [SerializeField] private Transform _startPoint;
 
@@ -19,11 +22,11 @@ public class Terminator : ShootingCharacter
         _collisionHandler.CollisionDetected -= HandleCollision;
     }
 
-    protected override void Start()
+    protected override void Awake()
     {
-        TeleportToStartPoint();
+        base.Awake();
 
-        base.Start();
+        OnRevive();
     }
 
     private void HandleCollision(Iinteractable interactable)
@@ -32,8 +35,11 @@ public class Terminator : ShootingCharacter
             ReachedRemoveZone?.Invoke();
     }
 
-    public void TeleportToStartPoint()
+    public override void OnRevive()
     {
+        base.OnRevive();
+
+        _terminatorMover.SetCanBoost(true);
         transform.position = _startPoint.position;
     }
 }

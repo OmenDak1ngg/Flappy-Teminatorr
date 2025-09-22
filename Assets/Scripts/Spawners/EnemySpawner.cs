@@ -8,11 +8,17 @@ public class EnemySpawner : Spawner<Enemy>
     [SerializeField] private Transform[] _shootPoints;
     [SerializeField] private Transform[] _spawnPoints;
 
+    private int _maxEnemies => _shootPoints.Length;
+
+    private int _currentCountEnemies;
+
     private WaitForSeconds _spawnWait;
 
     protected override void Awake()
     {
         _spawnWait = new WaitForSeconds(_spawnDelay);
+
+        _currentCountEnemies = 0;
 
         base.Awake();
 
@@ -34,7 +40,7 @@ public class EnemySpawner : Spawner<Enemy>
 
     private Vector3 SetRandomSpawnPoint()
     {
-        return _spawnPoints[Random.Range(0,_shootPoints.Length)].position;   
+        return _spawnPoints[Random.Range(0, _shootPoints.Length)].position;
     }
 
     private IEnumerator SpawnEnemies()
@@ -43,7 +49,8 @@ public class EnemySpawner : Spawner<Enemy>
         {
             yield return _spawnWait;
 
-            _pool.Get();
+            if(_currentCountEnemies < _maxEnemies)
+                _pool.Get();
         }
     }
 
@@ -68,14 +75,18 @@ public class EnemySpawner : Spawner<Enemy>
         mover.MoveToShootPoint();
 
         base.OnGetObject(pooledObject);
+
+        _currentCountEnemies += 1;
     }
 
     protected override void OnReleaseObject(Enemy pooledObject)
     {
         pooledObject.GetComponent<EnemyShooter>().StopShooting();
         pooledObject.Health.SetStartAmount();
-
         pooledObject.GetComponent<AnimationController>().ResetAllStates();
+
+        _currentCountEnemies -= 1;
+
         base.OnReleaseObject(pooledObject);
     }
 
