@@ -11,8 +11,6 @@ public class TerminatorMover : MonoBehaviour
 
     private Rigidbody2D _rigidbody;
 
-    private bool _canBoost;
-
     private void OnEnable()
     {
         _inputReader.Boosted += Boost;
@@ -32,12 +30,6 @@ public class TerminatorMover : MonoBehaviour
 
     private void Boost()
     {
-        if(_canBoost)
-            _rigidbody.linearVelocity = new Vector2(_moveSpeed, _boostForce);
-    }
-
-    public void SetCanBoost(bool canBoost)
-    {
-        _canBoost = canBoost;
+        _rigidbody.linearVelocity = new Vector2(_moveSpeed, _boostForce);
     }
 }

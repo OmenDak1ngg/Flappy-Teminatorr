@@ -18,6 +18,13 @@ public class EnemyShooter : Shooter
         _mover.ReachedShootPoint -= StartShooting;
     }
 
+    protected override void Start()
+    {
+        base.Start();
+
+        BulletSpawner = GameObject.FindWithTag("EnemyBulletSpawner").GetComponent<BulletSpawner>();
+    }
+
     private IEnumerator ShootContinously()
     {
         while (enabled)
@@ -26,11 +33,6 @@ public class EnemyShooter : Shooter
 
             OnShoot();
         }
-    }
-
-    protected override void OnShoot()
-    {
-        base.OnShoot();
     }
 
     public void StartShooting()

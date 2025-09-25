@@ -36,4 +36,9 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour
     {
         Destroy(pooledObject.gameObject);
     }
+
+    protected virtual void ReleaseObject(T pooledObject)
+    {
+        _pool.Release(pooledObject);
+    }
 }

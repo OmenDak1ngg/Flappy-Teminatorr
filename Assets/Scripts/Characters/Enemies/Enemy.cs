@@ -9,6 +9,8 @@ public class Enemy : ShootingCharacter
 
     public event Action<Health> ReachedRemoveZone;
 
+    //сделать врагу шут поинт и чтобы он по нему выходил
+
     private void OnEnable()
     {
         _collisionHandler.CollisionDetected += HandleCollision;
@@ -23,5 +25,10 @@ public class Enemy : ShootingCharacter
     {
         if (interactable is RemoveZone)
             ReachedRemoveZone?.Invoke(GetComponent<Health>());
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        
     }
 }

@@ -5,6 +5,7 @@ public class Game : MonoBehaviour
 {
     [SerializeField] private Terminator _terminator;
     [SerializeField] private EndGameScreen _endGameScreen;
+    [SerializeField] private InputReader _inputReader;
 
     [SerializeField] private RestartButton _restartButton;
 
@@ -23,13 +24,14 @@ public class Game : MonoBehaviour
     private void EndGame()
     {
         Time.timeScale = 0f;
-    
+        _inputReader.SetInputEnabled(false);
         _endGameScreen.ShowEndGameScreen();
     }
 
     private void StartGame()
     {
         _terminator.OnRevive();
+        _inputReader.SetInputEnabled(true);
         Time.timeScale = 1f;
         _endGameScreen.HideEndGameScreen();
     }

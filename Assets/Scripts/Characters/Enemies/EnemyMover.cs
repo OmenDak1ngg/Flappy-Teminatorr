@@ -7,11 +7,10 @@ public class EnemyMover : MonoBehaviour
     [SerializeField] private float _speed;
 
     [SerializeField] private float _stopDistance = 0.6f;
-    
+
     [SerializeField] private float _moveDelay = 0.5f;
 
-    private Transform _shootPoint;
-
+    public ShootPoint ShootPoint { get; private set; }
 
     private WaitForSeconds _moveWait;
 
@@ -24,9 +23,9 @@ public class EnemyMover : MonoBehaviour
 
     private IEnumerator MovingToShootPoint()
     {
-        while (Vector3.Magnitude(transform.position - _shootPoint.position) >= _stopDistance * _stopDistance)
+        while (Vector3.Magnitude(transform.position - ShootPoint.transform.position) >= _stopDistance * _stopDistance)
         {
-            transform.position = Vector3.MoveTowards(transform.position, _shootPoint.position, _speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, ShootPoint.transform.position, _speed * Time.deltaTime);
 
             yield return _moveWait;
         }
@@ -39,8 +38,8 @@ public class EnemyMover : MonoBehaviour
         StartCoroutine(MovingToShootPoint());
     }
 
-    public void SetShootPoint(Transform shootPoint)
+    public void SetShootPoint(ShootPoint shootPoint)
     {
-        _shootPoint = shootPoint;
+        ShootPoint = shootPoint;
     }
 }

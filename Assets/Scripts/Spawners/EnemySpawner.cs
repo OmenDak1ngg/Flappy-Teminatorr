@@ -1,14 +1,17 @@
-﻿using System.Collections;
+﻿using NUnit.Framework;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemySpawner : Spawner<Enemy>
 {
     [SerializeField] private float _spawnDelay;
 
-    [SerializeField] private Transform[] _shootPoints;
+    [SerializeField] private ShootPoint[] _shootPoints;
     [SerializeField] private Transform[] _spawnPoints;
 
-    private int _maxEnemies => _shootPoints.Length;
+    private int _maxEnemies;
 
     private int _currentCountEnemies;
 
@@ -16,6 +19,7 @@ public class EnemySpawner : Spawner<Enemy>
 
     protected override void Awake()
     {
+        _maxEnemies = _shootPoints.Length;
         _spawnWait = new WaitForSeconds(_spawnDelay);
 
         _currentCountEnemies = 0;
@@ -33,14 +37,19 @@ public class EnemySpawner : Spawner<Enemy>
         }
     }
 
-    private Transform SetRandomShootPoint()
+    private ShootPoint SetRandomShootPoint()
     {
-        return _shootPoints[Random.Range(0, _shootPoints.Length)];
+        int shootPointIndex = Random.Range(0, _shootPoints.Length);
+
+        while (_shootPoints[shootPointIndex].IsTaked)
+            shootPointIndex = (shootPointIndex + 1) % _shootPoints.Length;
+
+        return _shootPoints[shootPointIndex];
     }
 
     private Vector3 SetRandomSpawnPoint()
     {
-        return _spawnPoints[Random.Range(0, _shootPoints.Length)].position;
+        return _spawnPoints[Random.Range(0, _spawnPoints.Length)].position;
     }
 
     private IEnumerator SpawnEnemies()
@@ -49,8 +58,7 @@ public class EnemySpawner : Spawner<Enemy>
         {
             yield return _spawnWait;
 
-            if(_currentCountEnemies < _maxEnemies)
-                _pool.Get();
+            _pool.Get();
         }
     }
 

@@ -38,8 +38,6 @@ public class Terminator : ShootingCharacter
     public override void OnRevive()
     {
         base.OnRevive();
-
-        _terminatorMover.SetCanBoost(true);
         transform.position = _startPoint.position;
     }
 }
