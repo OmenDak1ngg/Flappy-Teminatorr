@@ -37,6 +37,9 @@ public class AnimationController : MonoBehaviour
             _rigidbody.constraints = (RigidbodyConstraints2D)RigidbodyConstraints.None;
 
             _rigidbody.angularVelocity = _rotationSpeed;
+
+            if (character is Terminator)
+                GameObject.FindWithTag("InputReader").GetComponent<InputReader>().SetInputEnabled(false);
         }
     }
 

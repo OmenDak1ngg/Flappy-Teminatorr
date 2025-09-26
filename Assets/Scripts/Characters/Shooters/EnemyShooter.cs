@@ -42,6 +42,9 @@ public class EnemyShooter : Shooter
 
     public void StopShooting()
     {
+        if (_shootingCoroutine == null)
+            return;
+
         StopCoroutine(_shootingCoroutine);
     }
 }

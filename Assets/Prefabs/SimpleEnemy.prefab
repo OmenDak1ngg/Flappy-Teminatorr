@@ -225,7 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shootPoint: {fileID: 4568153548451572969}
   _shootDelay: 1
-  _bulletSpawner: {fileID: 0}
+  BulletSpawner: {fileID: 0}
   _mover: {fileID: 1098941577303380663}
 --- !u!114 &6636152099382570912
 MonoBehaviour:
@@ -239,6 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b57cebde491dc2a478833142a35a32d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inputReader: {fileID: 0}
 --- !u!114 &5709131299540957798
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71dbc4e574ea0648a77c2f645005989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _game: {fileID: 784372214}
   _prefab: {fileID: 6178037927883841369, guid: 69f74357cdbb844479430b20abffe43a, type: 3}
   _bulletOwnerLayerIndex: 6
 --- !u!1 &215449708
@@ -355,6 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71dbc4e574ea0648a77c2f645005989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _game: {fileID: 784372214}
   _prefab: {fileID: 7932677736980458712, guid: 456042afbaa894e4190947d23adc7eec, type: 3}
   _bulletOwnerLayerIndex: 0
 --- !u!1 &357639259
@@ -946,7 +948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _terminator: {fileID: 972693327}
   _endGameScreen: {fileID: 2017209189}
-  _inputReader: {fileID: 0}
+  _inputReader: {fileID: 819372847}
   _restartButton: {fileID: 926368580}
 --- !u!4 &784372215
 Transform:
@@ -1137,7 +1139,7 @@ GameObject:
   - component: {fileID: 819372847}
   m_Layer: 0
   m_Name: InputReader
-  m_TagString: Untagged
+  m_TagString: InputReader
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2259,6 +2261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 938c59019f24ac84c9166f0d02ab779b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _game: {fileID: 784372214}
   _prefab: {fileID: 1641829621749103608, guid: fb0815ab05e1f8f499d770722a1e38ab, type: 3}
   _spawnDelay: 5
   _shootPoints:

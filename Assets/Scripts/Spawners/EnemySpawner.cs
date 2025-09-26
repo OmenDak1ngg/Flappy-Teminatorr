@@ -52,7 +52,7 @@ public class EnemySpawner : Spawner<Enemy>
         {
             yield return _spawnWait;
 
-            if (_takedShootPoints < _shootPoints.Length + 1)
+            if (_takedShootPoints < _shootPoints.Length)
                 _pool.Get();             
         }
     }
@@ -73,7 +73,7 @@ public class EnemySpawner : Spawner<Enemy>
         EnemyMover mover = pooledObject.GetComponent<EnemyMover>();
 
         pooledObject.transform.position = SetRandomSpawnPoint();
-        mover.SetShootPoint(SetRandomShootPoint());
+        mover.SetShootPoint(SetRandomShootPoint()); //тут хуйня
 
         mover.MoveToShootPoint();
 

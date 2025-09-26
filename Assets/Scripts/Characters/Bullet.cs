@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -13,8 +12,6 @@ public class Bullet : MonoBehaviour
     [SerializeField] private CollisionHandler _collisionHandler;
 
     private int _ownerLayerIndex;
-
-    private Vector2 _startFacing;
 
     public int Damage => _damage;
 
