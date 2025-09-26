@@ -38,8 +38,6 @@ public class EnemySpawner : Spawner<Enemy>
         while (_shootPoints[shootPointIndex].IsTaked)
             shootPointIndex = (shootPointIndex + 1) % _shootPoints.Length;
 
-        _takedShootPoints += 1;
-
         return _shootPoints[shootPointIndex];
     }
 
@@ -78,6 +76,8 @@ public class EnemySpawner : Spawner<Enemy>
         mover.SetShootPoint(SetRandomShootPoint());
 
         mover.MoveToShootPoint();
+
+        _takedShootPoints += 1;
 
         base.OnGetObject(pooledObject);
     }
