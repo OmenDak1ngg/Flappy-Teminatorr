@@ -27,6 +27,11 @@ public class Game : MonoBehaviour
         _restartButton.Clicked -= StartGame;
     }
 
+    private void Start()
+    {
+        var all = FindObjectsOfType<MonoBehaviour>();
+    }
+
     private void EndGame()
     {
         Time.timeScale = 0f;
