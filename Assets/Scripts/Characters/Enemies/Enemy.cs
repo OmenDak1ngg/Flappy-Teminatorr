@@ -7,9 +7,9 @@ public class Enemy : ShootingCharacter
 {
     [SerializeField] private CollisionHandler _collisionHandler;
 
-    public event Action<Health> ReachedRemoveZone;
+    private ShootPoint _shootPoint;
 
-    //сделать врагу шут поинт и чтобы он по нему выходил
+    public event Action<Health> ReachedRemoveZone;
 
     private void OnEnable()
     {
@@ -25,10 +25,22 @@ public class Enemy : ShootingCharacter
     {
         if (interactable is RemoveZone)
             ReachedRemoveZone?.Invoke(GetComponent<Health>());
+
+        if(interactable is ShootPoint shootPoint && shootPoint.IsTaked == false)
+        {
+            shootPoint.SetIsTaked(true);
+            _shootPoint = shootPoint;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        
+        if(collision.TryGetComponent<ShootPoint>(out ShootPoint shootPoint))
+        {
+            if(_shootPoint == shootPoint)
+            {
+                _shootPoint.SetIsTaked(false);
+            }
+        }
     }
 }

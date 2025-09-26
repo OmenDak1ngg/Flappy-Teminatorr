@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(Health))]
 public class AnimationController : MonoBehaviour
@@ -33,15 +32,11 @@ public class AnimationController : MonoBehaviour
 
         if(health.TryGetComponent<ShootingCharacter>(out ShootingCharacter character))
         {
-
             _rigidbody.bodyType = RigidbodyType2D.Dynamic;
 
             _rigidbody.constraints = (RigidbodyConstraints2D)RigidbodyConstraints.None;
 
             _rigidbody.angularVelocity = _rotationSpeed;
-
-            if (character is Terminator terminator)
-                terminator.GetComponent<TerminatorMover>().SetCanBoost(false);
         }
     }
 
@@ -55,7 +50,6 @@ public class AnimationController : MonoBehaviour
         if(TryGetComponent<Terminator>(out Terminator terminator))
         {
             _rigidbody.bodyType = RigidbodyType2D.Dynamic;
-            terminator.GetComponent<TerminatorMover>().SetCanBoost(true);
         }
 
         transform.rotation = Quaternion.Euler(_startRotation);

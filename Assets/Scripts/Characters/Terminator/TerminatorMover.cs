@@ -23,7 +23,6 @@ public class TerminatorMover : MonoBehaviour
 
     private void Start()
     {
-        _canBoost = true;
         _rigidbody = GetComponent<Rigidbody2D>();
         _rigidbody.linearVelocity = new Vector2(_moveSpeed, 0);
     }

@@ -946,6 +946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _terminator: {fileID: 972693327}
   _endGameScreen: {fileID: 2017209189}
+  _inputReader: {fileID: 0}
   _restartButton: {fileID: 926368580}
 --- !u!4 &784372215
 Transform:
@@ -2260,7 +2261,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefab: {fileID: 1641829621749103608, guid: fb0815ab05e1f8f499d770722a1e38ab, type: 3}
   _spawnDelay: 5
-  _shootPoints: []
+  _shootPoints:
+  - {fileID: 975532433}
+  - {fileID: 253608962}
+  - {fileID: 1368029313}
   _spawnPoints:
   - {fileID: 688095686}
   - {fileID: 1576036130}

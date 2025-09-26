@@ -12,6 +12,11 @@ public class InputReader : MonoBehaviour
     public event Action Boosted;
     public event Action Shooted;
 
+    private void Start()
+    {
+        _isInputEnabled = true;
+    }
+
     private void Update()
     {
         if(_isInputEnabled == false)

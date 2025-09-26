@@ -1,7 +1,4 @@
-﻿using NUnit.Framework;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections;
 using UnityEngine;
 
 public class EnemySpawner : Spawner<Enemy>
@@ -11,18 +8,15 @@ public class EnemySpawner : Spawner<Enemy>
     [SerializeField] private ShootPoint[] _shootPoints;
     [SerializeField] private Transform[] _spawnPoints;
 
-    private int _maxEnemies;
-
-    private int _currentCountEnemies;
+    private int _takedShootPoints;
 
     private WaitForSeconds _spawnWait;
 
     protected override void Awake()
     {
-        _maxEnemies = _shootPoints.Length;
         _spawnWait = new WaitForSeconds(_spawnDelay);
 
-        _currentCountEnemies = 0;
+        _takedShootPoints = 0;
 
         base.Awake();
 
@@ -44,6 +38,8 @@ public class EnemySpawner : Spawner<Enemy>
         while (_shootPoints[shootPointIndex].IsTaked)
             shootPointIndex = (shootPointIndex + 1) % _shootPoints.Length;
 
+        _takedShootPoints += 1;
+
         return _shootPoints[shootPointIndex];
     }
 
@@ -58,7 +54,8 @@ public class EnemySpawner : Spawner<Enemy>
         {
             yield return _spawnWait;
 
-            _pool.Get();
+            if (_takedShootPoints < _shootPoints.Length + 1)
+                _pool.Get();             
         }
     }
 
@@ -83,8 +80,6 @@ public class EnemySpawner : Spawner<Enemy>
         mover.MoveToShootPoint();
 
         base.OnGetObject(pooledObject);
-
-        _currentCountEnemies += 1;
     }
 
     protected override void OnReleaseObject(Enemy pooledObject)
@@ -93,7 +88,7 @@ public class EnemySpawner : Spawner<Enemy>
         pooledObject.Health.SetStartAmount();
         pooledObject.GetComponent<AnimationController>().ResetAllStates();
 
-        _currentCountEnemies -= 1;
+        _takedShootPoints -= 1;
 
         base.OnReleaseObject(pooledObject);
     }
