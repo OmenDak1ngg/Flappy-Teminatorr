@@ -10,6 +10,8 @@ public class AnimationController : MonoBehaviour
 
     private Vector3 _startRotation;
 
+    private readonly string _inputReaderTag = "InputReader";
+
     private void OnEnable()
     {
         _health.Dead += OnDeath;    
@@ -29,7 +31,6 @@ public class AnimationController : MonoBehaviour
 
     protected virtual void OnDeath(Health health)
     {
-
         if(health.TryGetComponent<ShootingCharacter>(out ShootingCharacter character))
         {
             _rigidbody.bodyType = RigidbodyType2D.Dynamic;
@@ -39,7 +40,7 @@ public class AnimationController : MonoBehaviour
             _rigidbody.angularVelocity = _rotationSpeed;
 
             if (character is Terminator)
-                GameObject.FindWithTag("InputReader").GetComponent<InputReader>().SetInputEnabled(false);
+                GameObject.FindWithTag(_inputReaderTag).GetComponent<InputReader>().SetInputEnabled(false);
         }
     }
 

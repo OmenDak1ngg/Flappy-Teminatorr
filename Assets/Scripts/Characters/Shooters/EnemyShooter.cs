@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-
 public class EnemyShooter : Shooter
 {
     [SerializeField] private EnemyMover _mover;
 
     private Coroutine _shootingCoroutine;
+
+    private readonly string _bulletSpawnerTag = "EnemyBulletSpawner";
 
     private void OnEnable()
     {
@@ -22,7 +23,7 @@ public class EnemyShooter : Shooter
     {
         base.Start();
 
-        BulletSpawner = GameObject.FindWithTag("EnemyBulletSpawner").GetComponent<BulletSpawner>();
+        BulletSpawner = GameObject.FindWithTag(_bulletSpawnerTag).GetComponent<BulletSpawner>();
     }
 
     private IEnumerator ShootContinously()

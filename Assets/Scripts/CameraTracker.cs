@@ -3,7 +3,6 @@ using UnityEngine;
 public class CameraTracker : MonoBehaviour
 {
     [SerializeField] private Terminator _terminator;
-
     [SerializeField] private float _offsetX;
 
     private void Update()

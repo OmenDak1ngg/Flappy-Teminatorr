@@ -11,14 +11,12 @@ public class Health : MonoBehaviour
 
     public event Action<Health> Dead;
 
-    public event Action Killed;
-
-    private void Start()
+    protected virtual void Start()
     {
         _startAmont = _amount;
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         if(_amount >= damage)
             _amount -= damage;
@@ -26,15 +24,10 @@ public class Health : MonoBehaviour
             _amount = 0;    
 
         if(_amount <= 0)
-        {
             Dead?.Invoke(this);
-
-            if (TryGetComponent(out Enemy _))
-                Killed?.Invoke();
-        }
     }
 
-    public void SetStartAmount()
+    public virtual void SetStartAmount()
     {
         _amount = _startAmont;
     }

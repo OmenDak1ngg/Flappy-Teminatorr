@@ -5,14 +5,12 @@ using UnityEngine;
 public class EnemyMover : MonoBehaviour
 {
     [SerializeField] private float _speed;
-
     [SerializeField] private float _stopDistance = 0.6f;
-
     [SerializeField] private float _moveDelay = 0.5f;
 
-    public ShootPoint ShootPoint { get; private set; }
-
     private WaitForSeconds _moveWait;
+    
+    public ShootPoint ShootPoint { get; private set; }
 
     public event Action ReachedShootPoint;
 

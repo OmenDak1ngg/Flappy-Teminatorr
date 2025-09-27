@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemySpawner : Spawner<Enemy>
 {
     [SerializeField] private float _spawnDelay;
-
     [SerializeField] private ShootPoint[] _shootPoints;
     [SerializeField] private Transform[] _spawnPoints;
 
@@ -78,13 +77,13 @@ public class EnemySpawner : Spawner<Enemy>
         EnemyMover mover = pooledObject.GetComponent<EnemyMover>();
 
         pooledObject.transform.position = SetRandomSpawnPoint();
-        mover.SetShootPoint(SetRandomShootPoint()); //тут хуйня
-
-        mover.MoveToShootPoint();
+        mover.SetShootPoint(SetRandomShootPoint());
 
         _takedShootPoints += 1;
 
         base.OnGetObject(pooledObject);
+
+        mover.MoveToShootPoint();
     }
 
     protected override void OnReleaseObject(Enemy pooledObject)

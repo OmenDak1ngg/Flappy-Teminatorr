@@ -7,9 +7,7 @@ public class BulletSpawner : Spawner<Bullet>
     protected override Bullet OnInstantiate()
     {
         Bullet bullet =  base.OnInstantiate();
-        
         bullet.SetOwnerLayerMask(_bulletOwnerLayerIndex);
-
         bullet.HittedTarget += ReleaseObject;
 
         return bullet;

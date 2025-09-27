@@ -1,10 +1,9 @@
 using TMPro;
 using UnityEngine;
 
-public class ScoreUI : MonoBehaviour
+public class ScoreViewer : MonoBehaviour
 {
     [SerializeField] private TMP_Text _textMeshPro;
-
     [SerializeField] private ScoreCounter _scoreCounter;
 
     private void OnEnable()

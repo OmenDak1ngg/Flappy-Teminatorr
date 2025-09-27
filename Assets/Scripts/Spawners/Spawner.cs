@@ -53,7 +53,7 @@ public class Spawner<T> : BaseSpawner where T : MonoBehaviour
     {
         for (int i = _activeObjects.Count - 1; i >= 0; i--)
         {
-            _pool.Release(_activeObjects[i]);
+            ReleaseObject( _activeObjects[i] );
         }
     }
 }
