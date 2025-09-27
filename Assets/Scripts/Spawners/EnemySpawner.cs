@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class EnemySpawner : Spawner<Enemy>
@@ -11,6 +12,8 @@ public class EnemySpawner : Spawner<Enemy>
     private int _takedShootPoints;
 
     private WaitForSeconds _spawnWait;
+
+    public event Action<Enemy> EnemySpawned;
 
     protected override void Awake()
     {
@@ -33,7 +36,7 @@ public class EnemySpawner : Spawner<Enemy>
 
     private ShootPoint SetRandomShootPoint()
     {
-        int shootPointIndex = Random.Range(0, _shootPoints.Length);
+        int shootPointIndex = UnityEngine.Random.Range(0, _shootPoints.Length);
 
         while (_shootPoints[shootPointIndex].IsTaked)
             shootPointIndex = (shootPointIndex + 1) % _shootPoints.Length;
@@ -43,7 +46,7 @@ public class EnemySpawner : Spawner<Enemy>
 
     private Vector3 SetRandomSpawnPoint()
     {
-        return _spawnPoints[Random.Range(0, _spawnPoints.Length)].position;
+        return _spawnPoints[UnityEngine.Random.Range(0, _spawnPoints.Length)].position;
     }
 
     private IEnumerator SpawnEnemies()
@@ -64,6 +67,8 @@ public class EnemySpawner : Spawner<Enemy>
         enemy.transform.SetParent(this.transform);
 
         enemy.ReachedRemoveZone += OnEnemyDead;
+
+        EnemySpawned?.Invoke(enemy);
 
         return enemy;
     }

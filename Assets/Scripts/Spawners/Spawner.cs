@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class Spawner<T> : MonoBehaviour, ISpawner where T : MonoBehaviour
+public class Spawner<T> : BaseSpawner where T : MonoBehaviour
 {
     [SerializeField] protected T _prefab;
 
@@ -49,9 +49,9 @@ public class Spawner<T> : MonoBehaviour, ISpawner where T : MonoBehaviour
         _pool.Release(pooledObject);
     }
 
-    public void ReleaseAllObjects()
+    public override void ReleaseAllObjects()
     {
-        for (int i = _activeObjects.Count - 1; i > 0; i--)
+        for (int i = _activeObjects.Count - 1; i >= 0; i--)
         {
             _pool.Release(_activeObjects[i]);
         }

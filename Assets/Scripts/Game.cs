@@ -1,17 +1,17 @@
 using UnityEngine;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 
 public class Game : MonoBehaviour
 {
     [SerializeField] private Terminator _terminator;
+    [SerializeField] private List<BaseSpawner> _spawners;
+    [SerializeField] private ScoreCounter _scoreCounter;
+
     [SerializeField] private EndGameScreen _endGameScreen;
     [SerializeField] private InputReader _inputReader;
 
     [SerializeField] private RestartButton _restartButton;
-
-    private ISpawner[] _spawners;
 
     public event Action GameRestarted;
 
@@ -27,11 +27,6 @@ public class Game : MonoBehaviour
         _restartButton.Clicked -= StartGame;
     }
 
-    private void Start()
-    {
-        var all = FindObjectsOfType<MonoBehaviour>();
-    }
-
     private void EndGame()
     {
         Time.timeScale = 0f;
@@ -41,12 +36,14 @@ public class Game : MonoBehaviour
     private void StartGame()
     {
         GameRestarted?.Invoke();
+     
+        _scoreCounter.Restart();
         _terminator.OnRevive();
         _inputReader.SetInputEnabled(true);
         Time.timeScale = 1f;
         _endGameScreen.HideEndGameScreen();
 
-        foreach(var spawner in _spawners)
+        foreach(BaseSpawner spawner in _spawners)
         {
             spawner.ReleaseAllObjects();
         }

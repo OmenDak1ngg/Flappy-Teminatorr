@@ -11,6 +11,8 @@ public class Health : MonoBehaviour
 
     public event Action<Health> Dead;
 
+    public event Action Killed;
+
     private void Start()
     {
         _startAmont = _amount;
@@ -24,7 +26,12 @@ public class Health : MonoBehaviour
             _amount = 0;    
 
         if(_amount <= 0)
+        {
             Dead?.Invoke(this);
+
+            if (TryGetComponent(out Enemy _))
+                Killed?.Invoke();
+        }
     }
 
     public void SetStartAmount()
