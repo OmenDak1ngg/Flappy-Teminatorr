@@ -25,11 +25,11 @@ public class EnemySpawner : Spawner<Enemy>
         StartCoroutine(SpawnEnemies());
     }
 
-    private void OnEnemyDead(Health health)
+    private void OnEnemyOutBounds(Health health)
     {
         if (health.TryGetComponent<Enemy>(out Enemy enemy))
         {
-            OnReleaseObject(enemy);
+            ReleaseObject(enemy);
         }
     }
 
@@ -65,7 +65,7 @@ public class EnemySpawner : Spawner<Enemy>
 
         enemy.transform.SetParent(this.transform);
 
-        enemy.ReachedRemoveZone += OnEnemyDead;
+        enemy.ReachedRemoveZone += OnEnemyOutBounds;
 
         EnemySpawned?.Invoke(enemy);
 
@@ -99,7 +99,7 @@ public class EnemySpawner : Spawner<Enemy>
 
     protected override void OnDestroyObject(Enemy pooledObject)
     {
-        pooledObject.ReachedRemoveZone -= OnEnemyDead;
+        pooledObject.ReachedRemoveZone -= OnEnemyOutBounds;
 
         base.OnDestroyObject(pooledObject);
     }
