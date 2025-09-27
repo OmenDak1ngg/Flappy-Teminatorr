@@ -8,22 +8,14 @@ public class EnemySpawner : Spawner<Enemy>
     [SerializeField] private ShootPoint[] _shootPoints;
     [SerializeField] private Transform[] _spawnPoints;
 
+    [SerializeField] private BulletSpawner _enemyBulletSpawner;
+    [SerializeField] private ScoreCounter _scoreCounter;
+
     private int _takedShootPoints;
 
     private WaitForSeconds _spawnWait;
 
     public event Action<Enemy> EnemySpawned;
-
-    protected override void Awake()
-    {
-        _spawnWait = new WaitForSeconds(_spawnDelay);
-
-        _takedShootPoints = 0;
-
-        base.Awake();
-
-        StartCoroutine(SpawnEnemies());
-    }
 
     private void OnEnemyOutBounds(Health health)
     {
@@ -59,6 +51,17 @@ public class EnemySpawner : Spawner<Enemy>
         }
     }
 
+    protected override void Awake()
+    {
+        _spawnWait = new WaitForSeconds(_spawnDelay);
+
+        _takedShootPoints = 0;
+
+        base.Awake();
+
+        StartCoroutine(SpawnEnemies());
+    }
+
     protected override Enemy OnInstantiate()
     {
         Enemy enemy = base.OnInstantiate();
@@ -66,6 +69,9 @@ public class EnemySpawner : Spawner<Enemy>
         enemy.transform.SetParent(this.transform);
 
         enemy.ReachedRemoveZone += OnEnemyOutBounds;
+
+        enemy.GetComponent<EnemyShooter>().SetBulletSpawner(_enemyBulletSpawner);
+        enemy.GetComponent<EnemyHealth>().SetScoreCounter(_scoreCounter);
 
         EnemySpawned?.Invoke(enemy);
 

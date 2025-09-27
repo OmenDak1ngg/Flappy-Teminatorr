@@ -29,6 +29,7 @@ public class Game : MonoBehaviour
 
     private void EndGame()
     {
+        _inputReader.SetInputEnabled(false);
         Time.timeScale = 0f;
         _endGameScreen.ShowEndGameScreen();
     }

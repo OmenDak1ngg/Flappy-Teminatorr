@@ -22,17 +22,17 @@ public class Terminator : ShootingCharacter
         _collisionHandler.CollisionDetected -= HandleCollision;
     }
 
+    private void HandleCollision(Iinteractable interactable)
+    {
+        if (interactable is RemoveZone)
+            ReachedRemoveZone?.Invoke();
+    }
+
     protected override void Awake()
     {
         base.Awake();
 
         OnRevive();
-    }
-
-    private void HandleCollision(Iinteractable interactable)
-    {
-        if (interactable is RemoveZone)
-            ReachedRemoveZone?.Invoke();
     }
 
     public override void OnRevive()

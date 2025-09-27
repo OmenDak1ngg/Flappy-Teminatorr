@@ -7,8 +7,6 @@ public class EnemyShooter : Shooter
 
     private Coroutine _shootingCoroutine;
 
-    private readonly string _bulletSpawnerTag = "EnemyBulletSpawner";
-
     private void OnEnable()
     {
         _mover.ReachedShootPoint += StartShooting;
@@ -17,13 +15,6 @@ public class EnemyShooter : Shooter
     private void OnDisable()
     {
         _mover.ReachedShootPoint -= StartShooting;
-    }
-
-    protected override void Start()
-    {
-        base.Start();
-
-        BulletSpawner = GameObject.FindWithTag(_bulletSpawnerTag).GetComponent<BulletSpawner>();
     }
 
     private IEnumerator ShootContinously()
@@ -47,5 +38,10 @@ public class EnemyShooter : Shooter
             return;
 
         StopCoroutine(_shootingCoroutine);
+    }
+
+    public void SetBulletSpawner(BulletSpawner bulletSpawner)
+    {
+        BulletSpawner = bulletSpawner;
     }
 }

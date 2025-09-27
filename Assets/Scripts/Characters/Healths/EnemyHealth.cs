@@ -3,6 +3,8 @@
 [RequireComponent(typeof(Enemy))]
 public class EnemyHealth : Health
 {
+    [SerializeField] private ScoreCounter _scoreCounter;
+
     private bool _isDead;
 
     protected override void Start()
@@ -19,7 +21,7 @@ public class EnemyHealth : Health
         if (Amount <= 0 && _isDead == false)
         {
             _isDead = true;
-            GameObject.FindGameObjectWithTag("ScoreCounter").GetComponent<ScoreCounter>().Increase();
+            _scoreCounter.Increase();
         }
     }
 
@@ -27,5 +29,10 @@ public class EnemyHealth : Health
     {
         base.SetStartAmount();
         _isDead = false;
+    }
+
+    public void SetScoreCounter(ScoreCounter counter)
+    {
+        _scoreCounter = counter;
     }
 }

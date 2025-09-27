@@ -2305,7 +2305,6 @@ GameObject:
   - component: {fileID: 1457416651}
   - component: {fileID: 1457416650}
   - component: {fileID: 1457416652}
-  - component: {fileID: 1457416653}
   m_Layer: 0
   m_Name: RemoveZone (2)
   m_TagString: Untagged
@@ -2398,20 +2397,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccd1a91cf86686a4fbb4eebc52801817, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1457416653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1457416647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70415139d9c555e4197c8cc83d8b345b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _collisionHandler: {fileID: 1457416652}
-  _scoreCounter: {fileID: 1693907178}
 --- !u!1 &1529114163
 GameObject:
   m_ObjectHideFlags: 0
@@ -2623,7 +2608,7 @@ GameObject:
   - component: {fileID: 1693907178}
   m_Layer: 0
   m_Name: ScoreCounter
-  m_TagString: Untagged
+  m_TagString: ScoreCounter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2903,7 +2888,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2017209185
 MonoBehaviour:
   m_ObjectHideFlags: 0

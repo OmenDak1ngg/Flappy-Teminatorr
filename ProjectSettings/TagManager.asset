@@ -6,6 +6,7 @@ TagManager:
   tags:
   - EnemyBulletSpawner
   - InputReader
+  - ScoreCounter
   layers:
   - Default
   - TransparentFX

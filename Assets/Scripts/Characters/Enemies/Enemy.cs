@@ -3,6 +3,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(EnemyMover))]
 [RequireComponent(typeof(CollisionHandler))]
+[RequireComponent(typeof(EnemyShooter))]
+[RequireComponent(typeof(EnemyHealth))]
 public class Enemy : ShootingCharacter
 {
     [SerializeField] private CollisionHandler _collisionHandler;

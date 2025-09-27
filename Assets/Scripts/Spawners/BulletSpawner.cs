@@ -29,5 +29,4 @@ public class BulletSpawner : Spawner<Bullet>
     {
         return _pool.Get();
     }
-
 }
